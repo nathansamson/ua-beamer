@@ -167,11 +167,19 @@
 % actual bottom margin in the PowerPoint(R) theme: 7.5'' - 6.83'' - 0.36'' + 0.36'' * 2px/52px
 \setlength{\textlogobottommarginDark}{0.41452307692307688cm}% (7.5'' - 6.83'' - 0.36'' + 0.36'' * 2px/52px)* 64/127 *2.54cm/in
 \newcommand\uTextColorPosDark {\pgfpoint{\margin}{\textlogobottommarginDark}}
+\newlength{\sectionbottommarginDark}
+\setlength{\sectionbottommarginDark}{0.200cm}
+\newcommand\posSectionFootDark{\pgfpoint{\margin}{\sectionbottommarginDark}}
+\newcommand\posSubSectionFootDark{\pgfpoint{\margin + 2.03cm}{\sectionbottommarginDark}}
 
 \newlength{\textlogobottommarginLight}
 % actual bottom margin in the PowerPoint(R) theme: 7.5'' - 6.80'' - 0.36'' + 0.36'' * 2px/52px
 \setlength{\textlogobottommarginLight}{0.45292307692307715cm}% (7.5''-6.80''-0.36''+0.36''*2px/52px)* 64/127 *2.54cm/in
 \newcommand\uTextColorPosLight{\pgfpoint{\margin}{\textlogobottommarginLight}}
+\newlength{\sectionbottommarginLight}
+\setlength{\sectionbottommarginLight}{0.240cm}
+\newcommand\posSectionFootLight{\pgfpoint{\margin}{\sectionbottommarginLight}}
+\newcommand\posSubSectionFootLight{\pgfpoint{\margin + 2.03cm}{\sectionbottommarginLight}}
 
 \newlength{\logorightmargin}%
 \setlength{\logorightmargin}{12.1344cm}% 9.48in* 64/127 *2.54cm/in
@@ -189,6 +197,18 @@
   {%
     \pgftext[left,bottom,at=\uTextColorPosDark]{\pgfuseimage{uTextColor}}%
     \pgftext[right,bottom,at=\posUlogoFoot]{\pgfuseimage{ULogo}}%
+    % Section and Subsection titles
+    % Note thtat section title will flow into subsection if too long
+    \pgftext[left,bottom,at=\posSectionFootDark]{%
+      \usebeamerfont{text in foot}%
+      \usebeamercolor[fg]{section in foot}%
+      \insertsectionhead%
+    }%
+    \pgftext[left,bottom,at=\posSubSectionFootDark]{%
+      \usebeamerfont{text in foot}%
+      \usebeamercolor[fg]{subsection in foot}%
+      \insertsubsectionhead
+    }%
   }
   % *** ELSE *** light footline
   {%
@@ -199,6 +219,20 @@
 
     % bottom wave
     \pgftext[right,bottom,at=\uWavePos]{\pgfuseimage{uWave}}%
+
+    % it looks strange with compress...
+    % Section and Subsection titles
+    \pgftext[left,bottom,at=\posSectionFootDark]{%
+      \usebeamerfont{text in foot}%
+      \usebeamercolor[fg]{section in foot}%
+      \insertsectionhead%
+    }%
+    % This does not work perfectly if the subsection has a long name (flows over the dark wave)
+    \pgftext[left,bottom,at=\posSubSectionFootDark]{%
+      \usebeamerfont{text in foot}%
+      \usebeamercolor[fg]{subsection in foot}%
+      \insertsubsectionhead
+    }%
 
     % page number
     \ifbeamer@framenumber%
