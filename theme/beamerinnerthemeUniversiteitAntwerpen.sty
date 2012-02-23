@@ -23,6 +23,11 @@
     \vskip2ex%
     {\raggedright\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}%
   \fi%
+  \vfill
+  \ifx\insertdate\@empty%
+  \else%
+    {\raggedright\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}%
+  \fi%
   \vfill%
 }
 % ----------------------------------------------------------------------------
